@@ -3,7 +3,9 @@ import home_icon from '../img/icons/home-icon.svg'
 import workouts_icon from '../img/icons/dumbbell-icon.svg'
 import statistics_icon from '../img/icons/stats-icon.svg'
 import profile_icon from '../img/icons/profile-icon.svg'
-import settings_icon from './icons/settings-icon.svg'
+import settings_icon from '../img/icons/settings-icon.svg'
+
+import './FooterMenu.css'
 
 const FooterMenu = ({ handleClick }) => {
     const menu_items = [
