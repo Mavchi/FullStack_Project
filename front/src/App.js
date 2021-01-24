@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import FooterMenu from './components/FooterMenu'
 import WorkoutThumbnail from './components/WorkoutThumbnail'
+import Search from './components/Search'
 
 function App() {
   const [workout, setWorkout] = useState({
@@ -26,9 +27,13 @@ function App() {
     }
   }
 
+  const handleSearchChange = (action) => {
+    return null
+  }
+
   return (
     <div className="content">
-      <h1>Content comes here</h1>
+      <Search handleChange={handleSearchChange}/>
       <WorkoutThumbnail workout={workout} handleClick={handleWorkoutThumbnailClick}/>
 
       <FooterMenu handleClick={handleMenuClick}/>

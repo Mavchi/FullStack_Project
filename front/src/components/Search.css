@@ -1,0 +1,11 @@
+.search-box {
+    color: white;
+    background-color: #574545;
+    border-radius: 25px;
+}
+
+.search-input {
+    color: white;
+    width: 80%;
+    background-color: #574545;
+}
