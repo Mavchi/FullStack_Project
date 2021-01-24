@@ -1,0 +1,27 @@
+.footer-menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 auto;
+  }
+
+.footer-menu-item {
+  margin: 0 auto;
+  padding: 0 auto;
+  height: 100%;
+  width: 20%;
+  color: white;
+  display: inline;
+}
+
+.footer-menu-icon {
+  color: white;
+  height: 24px;
+  width: 24px;
+  width: 20%
+}
