@@ -1,0 +1,3 @@
+23.01.2021 		2		Suunnittelu, Figmaan tutustuminen
+24.01.2021 		5		Figma, ulkoasun ja rakenteen hyvin karkea suunnittelu,
+						FooterMenu ja eka versio WorkoutThumbnail ja Search-komponenteista

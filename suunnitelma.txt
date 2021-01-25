@@ -1,0 +1,22 @@
+Tagit workouteille:
+- maksullisuus: Pro (tai ei mitään)
+- Erilaiset treenit:
+	- Bodyweight
+	- Hiit Training / Interval
+	- Strength Training
+	- Functional Training
+	- Mobility Training
+	- (Sports training)
+	- Follow Along
+	- Bodybuilding / Muscle
+- Tasot?
+	- Beginner
+	- Intermediate
+	- Advanced
+- Treeniä kuvaava:
+	*** Duration 
+	*** Difficulty
+  tai
+	*** Cardio 
+	*** Muscle
+	

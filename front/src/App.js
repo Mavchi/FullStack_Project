@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import FooterMenu from './components/FooterMenu'
 import WorkoutThumbnail from './components/WorkoutThumbnail'
 import Search from './components/Search'
 
+import workoutDescService from './modules/workout_descriptions'
+
 function App() {
-  const [workout, setWorkout] = useState({
-    id: 1,
-    name: 'Upper Body',
-    pro: true,
-    level: 'Beginner',
-    cardio: 2,
-    muscle: 1,
-    img: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-  })
+  const [workoutDescs, setWorkoutDescs] = useState([])
+
+  useEffect(() => {
+    workoutDescService
+      .getAll()
+      .then(defaultWorkouts => {
+        setWorkoutDescs(defaultWorkouts)
+      })
+      .catch(error => {
+        console.log('couldnt download workout descriptions from server:', error)
+      })
+  }, [])
 
   const handleMenuClick = (action) => {
     return () => {
