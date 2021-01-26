@@ -1,3 +1,9 @@
 23.01.2021 		2		Suunnittelu, Figmaan tutustuminen
-24.01.2021 		5		Figma, ulkoasun ja rakenteen hyvin karkea suunnittelu,
+24.01.2021 		6		Figma, ulkoasun ja rakenteen hyvin karkea suunnittelu,
 						FooterMenu ja eka versio WorkoutThumbnail ja Search-komponenteista
+25.01.2021		1		Yksinkertainen backendi
+26.01.2021		1		Back-end -koodin refrakrointi ja jako fiksumpiin moduuleihin
+27.01.2021		1		front-end lataa mongodb:sta ja css:ään perehtymistä
+27.01.2021		5		eri treenien keksiminen ja käyttäliittymän suunnittelu / user flow (figma)
+
+Yhteensä: 16 tuntia

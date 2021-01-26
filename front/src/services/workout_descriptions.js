@@ -1,9 +1,9 @@
 import axios from 'axios'
-const baseUrl = '/api/workout_descriptions'
+const baseUrl = 'http://localhost:3003/api/workoutDescriptions'
 
 const getAll = () => {
     const request = axios.get(baseUrl)
-    request.then(response => response.data)
+    return request.then(response => response.data)
 }
 
 const workoutDescService = { getAll }

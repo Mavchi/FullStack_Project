@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import lodash from 'lodash'
 
-import FooterMenu from './components/FooterMenu'
-import WorkoutThumbnail from './components/WorkoutThumbnail'
-import Search from './components/Search'
+import WorkoutPage from './pages/WorkoutPage'
 
-import workoutDescService from './modules/workout_descriptions'
+import workoutDescService from './services/workout_descriptions'
 
 function App() {
   const [workoutDescs, setWorkoutDescs] = useState([])
@@ -13,7 +12,7 @@ function App() {
     workoutDescService
       .getAll()
       .then(defaultWorkouts => {
-        setWorkoutDescs(defaultWorkouts)
+        setWorkoutDescs(lodash.cloneDeep(defaultWorkouts))
       })
       .catch(error => {
         console.log('couldnt download workout descriptions from server:', error)
@@ -38,10 +37,7 @@ function App() {
 
   return (
     <div className="content">
-      <Search handleChange={handleSearchChange}/>
-      <WorkoutThumbnail workout={workout} handleClick={handleWorkoutThumbnailClick}/>
-
-      <FooterMenu handleClick={handleMenuClick}/>
+      <WorkoutPage />
     </div>
   )
 }
