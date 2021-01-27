@@ -11,6 +11,8 @@ import WorkoutTabs from './WorkoutTabs'
 const WorkoutPage = ({ workouts, tabs }) => {
     const [localState, setLocalState] = useState('main')
 
+    console.log('workouts', workouts)
+
     const handleTabClick = () => console.log('tab menu clikki')
     const handleMenuClick = () => console.log('footermenu clikki')
 

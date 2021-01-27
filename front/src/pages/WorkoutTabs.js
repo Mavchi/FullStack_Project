@@ -3,6 +3,8 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 //import { Tab } from 'react-materialize'
 import WorkoutThumbnail from '../components/WorkoutThumbnail'
 
+
+
 // Print menu item
 const MenuItem = ({ text, selected }) => {
     return (
@@ -13,9 +15,12 @@ const MenuItem = ({ text, selected }) => {
 }
 
 // all menu item component
-const Menu = ( list, selected ) => {
+const Menu = ( list, selected ) => 
+    list.map(el => {
+        const {name} = el
 
-}
+        return <MenuItem text={name} key={'tab-menu-item-'+name} selected={selected} />
+    })
 
 const Arrow = ({ text, className }) => {
     return (
@@ -29,18 +34,17 @@ const ArrowRight = Arrow({ text: '>', className: 'arrow-next' });
 
 const WorkoutPages = ({ tabs, handleClick }) => {
     const [selected, setSelected] = useState({selected: tabs[0].name})
-
+    const list = tabs.map(tab => tab.name)
     const onSelect = key => {
         setSelected({selected: key})
     }
 
     // create menu items
-    const list = tabs.map(tab => tab.name)
-
+    const menuItems = Menu(list, selected)
     return (
         <div>
             <ScrollMenu
-                data={list}
+                data={menuItems}
                 arrowLeft={ArrowLeft}
                 arrowRight={ArrowRight}
                 selected={selected}

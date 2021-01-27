@@ -11,37 +11,33 @@ function App() {
   const [workoutLists, setWorkoutLists] = useState({ tabs: [], favourite: [] })
   const [globalState, setGlobalState] = useState("workouts")
 
+  let initiated = false
+
   useEffect(() => {
     workoutDescService
       .getAll()
       .then(workouts => {
         // download default workouts
-        setDefaultWorkouts(lodash.cloneDeep(workouts))
-
-        // download workout menu data
-        let new_workout_list = ({ tabs: [], favourite: [] })
-        new_workout_list.tabs = lodash.cloneDeep(workoutPageService.getAll())
-        setWorkoutLists( new_workout_list )
-        /*
-        workoutPageService
-          .getAll()
-          .then(pages => {
-            // set up data for workout menu
-            let new_workout_list = lodash.cloneDeep(workoutLists)
-            new_workout_list.tabs = lodash.deepCopy(pages)
-            setWorkoutLists({ tabs: lodash.cloneDeep(new_workout_list), })
-          })
-          .catch(error => {
-            console.log('couldnt download data for workout pages for server', error)
-          })
-        */
+        //console.log('workouts', workouts)
+        setDefaultWorkouts(workouts)
       })
       .catch(error => {
         console.log('couldnt download workout descriptions from server:', error)
       })
-  }, [workoutLists])
+  }, [])
 
-  if (globalState === "workouts")
+  if (!initiated) {
+    initiated = true
+    // download workout menu data
+    let new_workout_list = lodash.cloneDeep(workoutLists)
+    new_workout_list.tabs = lodash.cloneDeep(workoutPageService.getAll())
+    //console.log('new_workout_list', new_workout_list)
+    setWorkoutLists(new_workout_list)
+  }
+
+  if (globalState === "workouts") {
+    //console.log('defaultWorkouts', defaultWorkouts)
+    //console.log('workoutLists.tabs', workoutLists.tabs)
     return (
       <div className="content">
         <WorkoutPage
@@ -50,6 +46,7 @@ function App() {
         />
       </div>
     )
+  }
 }
 
 export default App;
