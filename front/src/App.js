@@ -8,7 +8,7 @@ import workoutPageService from './services/workout_pages'
 
 function App() {
   const [defaultWorkouts, setDefaultWorkouts] = useState([])
-  const [workoutLists, setWorkoutLists] = useState({ tabs: [], favourite: []})
+  const [workoutLists, setWorkoutLists] = useState({ tabs: [], favourite: [] })
   const [globalState, setGlobalState] = useState("workouts")
 
   useEffect(() => {
@@ -19,6 +19,10 @@ function App() {
         setDefaultWorkouts(lodash.cloneDeep(workouts))
 
         // download workout menu data
+        let new_workout_list = ({ tabs: [], favourite: [] })
+        new_workout_list.tabs = lodash.cloneDeep(workoutPageService.getAll())
+        setWorkoutLists( new_workout_list )
+        /*
         workoutPageService
           .getAll()
           .then(pages => {
@@ -30,17 +34,18 @@ function App() {
           .catch(error => {
             console.log('couldnt download data for workout pages for server', error)
           })
+        */
       })
       .catch(error => {
         console.log('couldnt download workout descriptions from server:', error)
       })
   }, [workoutLists])
 
-  if(globalState === "workouts")
+  if (globalState === "workouts")
     return (
       <div className="content">
-        <WorkoutPage 
-          workouts={defaultWorkouts} 
+        <WorkoutPage
+          workouts={defaultWorkouts}
           tabs={workoutLists.tabs}
         />
       </div>
