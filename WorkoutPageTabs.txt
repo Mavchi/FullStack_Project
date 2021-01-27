@@ -1,0 +1,23 @@
+Tabs = [{
+        name: "For You",
+        type: "list"/"filter"
+    }
+]
+Jos type == list
+Tabs = [{
+        name: "For You",
+        type: "list",
+        workouts_id = [...id:t]
+        filter = []
+        workouts = []
+    }
+]
+Jos type == list
+Tabs = [{
+        name: "For You",
+        type: "filter",
+        workouts_id = []
+        filter = ["Bodybuilding"]
+        workouts = []
+    }
+]

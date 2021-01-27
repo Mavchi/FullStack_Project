@@ -1,15 +1,33 @@
 import React, { useState } from 'react'
-import {  } from 'react-materialize';
+import { Tabs } from 'react-materialize'
 
 import FooterMenu from '../components/FooterMenu'
 import Search from '../components/Search'
-import WorkoutThumbnail from '../components/WorkoutThumbnail'
+import WorkoutTab from './WorkoutTab'
 
-const WorkoutPage = ({}) => {
+const WorkoutPage = ({ workouts, tabs }) => {
+    const [localState, setLocalState] = useState('main')
+
+    const handleTabClick = () => console.log('tab menu clikki')
+    const handleMenuClick = () => console.log('footermenu clikki')
+
+    if(localState === 'main')
     return (
-        <Search handleChange={handleSearchChange}/>
-        {workoutDescs.map(workout => <WorkoutThumbnail key={workout.name + workout.id.toString()} workout={workout} handleClick={handleWorkoutThumbnailClick}/>)}
-        
-        <FooterMenu handleClick={handleMenuClick}/>
+            <div>
+                <Search handleChange={() => console.log('emmä tiiä')} />
+
+                <Tabs
+                    className="tab-demo z-depth-1"
+                    options={{
+                        swipeable: true
+                    }}
+                >
+                    {tabs.map(tab => <WorkoutTab key={tab.name} tab={tab} handleClick={handleTabClick}/>)}
+                </Tabs>
+
+                <FooterMenu handleClick={handleMenuClick} />
+            </div>
     )
 }
+
+export default WorkoutPage

@@ -3,7 +3,8 @@
 						FooterMenu ja eka versio WorkoutThumbnail ja Search-komponenteista
 25.01.2021		1		Yksinkertainen backendi
 26.01.2021		1		Back-end -koodin refrakrointi ja jako fiksumpiin moduuleihin
-27.01.2021		1		front-end lataa mongodb:sta ja css:ään perehtymistä
-27.01.2021		5		eri treenien keksiminen ja käyttäliittymän suunnittelu / user flow (figma)
+26.01.2021		1		front-end lataa mongodb:sta ja css:ään perehtymistä
+26.01.2021		5		eri treenien keksiminen ja käyttäliittymän suunnittelu / user flow (figma)
+27.01.2021				WorkoutPage-komponentti
 
 Yhteensä: 16 tuntia
