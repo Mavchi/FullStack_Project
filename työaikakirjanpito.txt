@@ -5,6 +5,6 @@
 26.01.2021		1		Back-end -koodin refrakrointi ja jako fiksumpiin moduuleihin
 26.01.2021		1		front-end lataa mongodb:sta ja css:ään perehtymistä
 26.01.2021		5		eri treenien keksiminen ja käyttäliittymän suunnittelu / user flow (figma)
-27.01.2021				WorkoutPage-komponentti
+27.01.2021		6		WorkoutPage-komponentti, vierittävä tabimainen valikko ja yritys saada nykyinen versio toimimaan
 
 Yhteensä: 16 tuntia
