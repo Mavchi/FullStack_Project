@@ -1,0 +1,45 @@
+const workoutSchema = mongoose.Schema({
+    name: String,
+    description: {
+        pro: { type: Boolean, },
+        level: { type: String },
+        cardio: { type: Number },
+        muscle: { type: Number },
+        img: { type: String },
+        tags: [String],
+    }
+})
+
+Kun valikossa joku valitsee tietyn treenin:
+- Sanallinen kuvaus treenistä
+- Treenin liikkeet, toistot jne
+- Välineet
+- Beginner/Intermediate/Advanced
+- Cardio/Muscle/Strength
+
+Erityyppiset treenit:
+- Ei kierroksia (rounds==1), 
+    tällöin ei näy kierrosten lukumäärää:
+    Näkyisi vaan liikkeet, esimerkiksi
+        Goblet Squat                3 sets, 8 reps
+        Single Arm Bent-Over Row    3 sets, 8 reps
+        Kettlebell Deadlift         3 sets, 8 reps
+        Kettlebell Push Press       3 sets, 8 reps
+        Kettlebell Pushup           3 sets, 8 reps
+- Kaikki kierrokset samanlaisia
+    - seteillä on toistomäärät:
+        3 Rounds
+            Goblet Squat                1 sets, 8 reps
+            Single Arm Bent-Over Row    8 reps
+            Kettlebell Deadlift         8 reps
+            Kettlebell Push Press       8 reps
+            Kettlebell Pushup           8 reps
+    - seteillä on aikarajat:
+        3 Rounds
+            Goblet Squat                1 sets, 0 reps, 40 seconds * rest 20 seconds
+            Single Arm Bent-Over Row    40 seconds * rest 20 seconds
+            Kettlebell Deadlift         40 seconds * rest 20 seconds
+            Kettlebell Push Press       40 seconds * rest 20 seconds
+            Kettlebell Pushup           40 seconds * rest 20 seconds
+- Erilaisia kierroksia
+    
