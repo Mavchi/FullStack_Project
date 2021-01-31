@@ -4,6 +4,9 @@ import './login.css'
 import facebook_icon from '../../img/icons/facebook-icon.svg'
 import google_icon from '../../img/icons/google-icon.svg'
 
+import 'materialize-css';
+import { TextInput } from 'react-materialize';
+
 const Welcome = ({ handleGlobalState }) => {
     return (
         <div className='welcome-page'>
@@ -16,11 +19,12 @@ const Welcome = ({ handleGlobalState }) => {
 }
 
 const SignUp = ({ handleGlobalState }) => {
+    // main, sign up-facebook, sign up-google, sign up-email
     const [localState, setLocalState] = useState('main')
 
     const handleLocalStateChange = (state) => {
         return () => (
-            console.log(state, 'clicked')
+            setLocalState(state)
         )
     }
 
@@ -33,13 +37,13 @@ const SignUp = ({ handleGlobalState }) => {
                 <div className='sign-container'>
                     <div className='login-button login-blue' onClick={handleLocalStateChange('sign up-facebook')}>
                         <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px'}} src={facebook_icon} alt={'facebook-icon'}/>
+                            <img style={{ height: '40px' }} src={facebook_icon} alt={'facebook-icon'} />
                         </div>
                         Sign Up with Facebook
                     </div>
                     <div className='login-button login-blue' onClick={handleLocalStateChange('sign up-google')}>
                         <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px'}} src={google_icon} alt={'google-icon'}/>
+                            <img style={{ height: '40px' }} src={google_icon} alt={'google-icon'} />
                         </div>
                         Sign Up with Google
                     </div>
@@ -51,8 +55,37 @@ const SignUp = ({ handleGlobalState }) => {
                         Sign Up with Email
                     </div>
                 </div>
-                <div style={{ color: '#E4DEDE', textAlign: 'center'}}>
-                    Already have an account? <span style={{ color: '#395185'}} onClick={handleGlobalState('sign in')}>Sign In</span>
+                <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
+                    Already have an account? <span style={{ color: '#395185' }} onClick={handleGlobalState('sign in')}>Log In</span>
+                </div>
+            </div>
+        )
+
+    if (localState === 'sign up-email')
+        return (
+            <div className='login-container-centered'>
+                <div style={{ fontWeight: 'bold', fontSize: '30px', textAlign: 'center', color: '#E4DEDE' }}>Sign Up with Email</div>
+                <TextInput
+                    label='Name'
+                />
+                <TextInput
+                    label='Email'
+                    email='true'
+                />
+                <TextInput
+                    label='Create Password'
+                    password='true'
+                />
+
+                <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
+                    Permission for marketing
+                </div>
+
+                <div className='login-button login-grey'>
+                    Create Account
+                </div>
+                <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
+                    Already have an account? <span style={{ color: '#395185' }} onClick={handleGlobalState('sign in')}>Log In</span>
                 </div>
             </div>
         )
@@ -76,13 +109,13 @@ const SignIn = ({ handleGlobalState }) => {
                 <div className='sign-container'>
                     <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-facebook')}>
                         <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px'}} src={facebook_icon} alt={'facebook-icon'}/>
+                            <img style={{ height: '40px' }} src={facebook_icon} alt={'facebook-icon'} />
                         </div>
                         Log In with Facebook
                     </div>
                     <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-google')}>
                         <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px'}} src={google_icon} alt={'google-icon'}/>
+                            <img style={{ height: '40px' }} src={google_icon} alt={'google-icon'} />
                         </div>
                         Log In with Google
                     </div>
@@ -91,15 +124,15 @@ const SignIn = ({ handleGlobalState }) => {
                         or
                     </div>
 
-                    <input value='Email' style={{ color: '#E4DEDE' }}/>
-                    <input value='Password' style={{ color: '#E4DEDE' }}/>
-                    <span style={{ color: '#395185', textAlign: 'center'}} onClick={handleGlobalState('forgot password')}>Forgot Password</span>
+                    <input value='Email' style={{ color: '#E4DEDE' }} />
+                    <input value='Password' style={{ color: '#E4DEDE' }} />
+                    <div style={{ color: '#395185', textAlign: 'center' }} onClick={handleGlobalState('forgot password')}>Forgot Password</div>
                     <div className='login-button login-grey' onClick={handleLocalStateChange('sign in-email')}>
                         Log In with Email
                     </div>
                 </div>
-                <div style={{ color: '#E4DEDE', textAlign: 'center'}}>
-                    Don't have an account? <span style={{ color: '#395185'}} onClick={handleGlobalState('sign up')}>Sign Up</span>
+                <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
+                    Don't have an account? <span style={{ color: '#395185' }} onClick={handleGlobalState('sign up')}>Sign Up</span>
                 </div>
             </div>
         )
