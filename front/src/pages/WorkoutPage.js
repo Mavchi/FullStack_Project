@@ -16,6 +16,12 @@ const WorkoutPage = ({ workouts, tabs }) => {
     const handleTabClick = () => console.log('tab menu clikki')
     const handleMenuClick = () => console.log('footermenu clikki')
 
+    return (
+        <div>
+            {tabs[0].name}
+        </div>
+    )
+
     if (localState === 'main') {
         return (
             <div>

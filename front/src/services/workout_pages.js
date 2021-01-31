@@ -23,14 +23,14 @@ const getAll = () => {
             type: "list",
             workouts_id: [],
             filter: ["Bodybuilding"],
-            workouts: [workout]
+            workouts: [...workout]
         },
         {
             name: "Popular",
             type: "filter",
             workouts_id: [],
             filter: ["Bodybuilding"],
-            workouts: [workout]
+            workouts: [...workout]
         }
     ]
     return tabs

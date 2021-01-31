@@ -1,0 +1,10 @@
+User = {
+    id,
+    username,
+    password,
+    name,
+    workoutLog = [], 
+    weightLog = [],
+    favouriteWorkouts = [],
+    customWorkouts = []
+}
