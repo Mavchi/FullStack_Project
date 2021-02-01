@@ -1,5 +1,15 @@
 GET http://localhost:3003/api/workouts
 ###
+GET http://localhost:3003/api/users
+###
+
+
+
+
+
+
+
+###
 POST http://localhost:3003/api/workouts
 Content-Type: application/json
 

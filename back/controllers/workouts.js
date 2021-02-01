@@ -1,22 +1,15 @@
 const workoutRouter = require('express').Router()
 const Workout = require('../models/workout')
 
-workoutRouter.get('/', (request, response) => {
-    Workout
-        .find({})
-        .then(workouts => {
-            response.json(workouts)
-        })
+workoutRouter.get('/', async (request, response) => {
+    const workouts = await Workout.find({})
+    response.json(workouts.map(w => w.toJSON()))
 })
 
-workoutRouter.post('/', (request, response) => {
+workoutRouter.post('/', async (request, response) => {
     const workout = new Workout(request.body)
-
-    workout
-        .save()
-        .then(result => {
-            response.status(201).json(result)
-        })
+    const saved_workout = await workout.save()
+    response.status(201).json(saved_workout)
 })
 
 module.exports = workoutRouter

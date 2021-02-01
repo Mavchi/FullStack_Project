@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const workoutSchema = mongoose.Schema({
     name: String,
+    true_id: String, // jos käyttäjä muokannut, sen treenin id
     description: {
         pro: { type: Boolean, },
         level: { type: String },

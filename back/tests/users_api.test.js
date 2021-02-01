@@ -10,7 +10,7 @@ const helper = require('./test_helper')
 const test_workouts = require('./test_workouts')
 
 const api = supertest(app)
-
+/*
 describe('workouts - general', () => {
     beforeEach(async () => {
         await Workout.deleteMany({})
@@ -24,11 +24,6 @@ describe('workouts - general', () => {
         workoutsInDb = await helper.workoutsInDb()
         expect(workoutsInDb).toHaveLength(test_workouts.length)
     })
-    /*
-    test('valid workout can be added', async () => {
-
-    })
-    */
 })
 
 describe('when there is initially one user at db', () => {
@@ -39,11 +34,6 @@ describe('when there is initially one user at db', () => {
         const user = new User({ username: 'root', name: 'Aleksi', passwordHash })
 
         await user.save()
-        /*
-        const workoutObjects = test_workouts.map(async (workout) => await new workout(workout))
-        const workoutPromises = workoutObjects.map(async (workout) => await workout.save())
-        Promise.all(workoutPromises)
-        */
     })
 
     test('creation succeeds with a fresh username', async () => {
@@ -87,6 +77,92 @@ describe('when there is initially one user at db', () => {
 
         const usersAtEnd = await helper.usersInDb()
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
+    })
+})
+*/
+describe('favourite workouts', () => {
+
+    test('possible to favourite workout', async () => {
+        const user_id = '6017fd14ac151833101a62a6'
+        const user = await User.findById(user_id)
+        user.favourite_workouts = []
+        await User.findByIdAndUpdate(user.id, user, { new: true })
+
+        const req = {
+            workout_id: '6017fd12ac151833101a62a3',
+            userId: '6017fd14ac151833101a62a6',
+        }
+
+        const userAtStart = await User.findById(req.userId)
+        expect(userAtStart.favourite_workouts).toHaveLength(0)
+
+        const result = await api
+            .post('/api/favourite_workouts')
+            .send(req)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const userAtEnd = await User.findById(req.userId)
+        expect(userAtEnd.favourite_workouts).toHaveLength(1)
+    })
+
+    test('cant favourite same workout twice', async () => {
+        const req = {
+            workout_id: '6017fd12ac151833101a62a3',
+            userId: '6017fd14ac151833101a62a6',
+        }
+
+        const userAtStart = await User.findById(req.userId)
+        expect(userAtStart.favourite_workouts).toHaveLength(1)
+
+        const result = await api
+            .post('/api/favourite_workouts')
+            .send(req)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        const userAtEnd = await User.findById(req.userId)
+        expect(userAtEnd.favourite_workouts).toHaveLength(1)
+    })
+
+    test('cant delete with wrong workout_id', async () => {
+        const req = {
+            workout_id: '612312312321',
+            userId: '6017fd14ac151833101a62a6',
+        }
+
+        const userAtStart = await User.findById(req.userId)
+        expect(userAtStart.favourite_workouts).toHaveLength(1)
+
+        const result = await api
+            .delete('/api/favourite_workouts')
+            .send(req)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const userAtEnd = await User.findById(req.userId)
+        //console.log('toimiikohan', userAtEnd.favourite_workouts)
+        expect(userAtEnd.favourite_workouts).toHaveLength(1)
+    })
+
+    test('can delete workout from favourites', async () => {
+        const req = {
+            workout_id: '6017fd12ac151833101a62a3',
+            userId: '6017fd14ac151833101a62a6',
+        }
+
+        const userAtStart = await User.findById(req.userId)
+        expect(userAtStart.favourite_workouts).toHaveLength(1)
+
+        const result = await api
+            .delete('/api/favourite_workouts')
+            .send(req)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const userAtEnd = await User.findById(req.userId)
+        console.log('userin workoutit poiston jälkeen', userAtEnd.favourite_workouts)
+        expect(userAtEnd.favourite_workouts).toHaveLength(0)
     })
 })
 
