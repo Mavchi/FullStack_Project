@@ -4,21 +4,50 @@ const app = require('../app')
 const bcrypt = require('bcrypt')
 
 const User = require('../models/user')
+const Workout = require('../models/workout')
+const helper = require('./test_helper')
+
+const test_workouts = require('./test_workouts')
 
 const api = supertest(app)
+
+describe('workouts - general', () => {
+    beforeEach(async () => {
+        await Workout.deleteMany({})
+
+        const workoutObjects = test_workouts.map(workout => new Workout(workout))
+        const workoutPromises = workoutObjects.map(async (workout) => await workout.save())
+        await Promise.all(workoutPromises)
+    })
+
+    test('all workouts are returned', async () => {
+        workoutsInDb = await helper.workoutsInDb()
+        expect(workoutsInDb).toHaveLength(test_workouts.length)
+    })
+    /*
+    test('valid workout can be added', async () => {
+
+    })
+    */
+})
 
 describe('when there is initially one user at db', () => {
     beforeEach(async () => {
         await User.deleteMany({})
 
         const passwordHash = await bcrypt.hash('sekret', 10)
-        const user = new User({ username: 'root', name: 'AleksiK', passwordHash })
+        const user = new User({ username: 'root', name: 'Aleksi', passwordHash })
 
         await user.save()
+        /*
+        const workoutObjects = test_workouts.map(async (workout) => await new workout(workout))
+        const workoutPromises = workoutObjects.map(async (workout) => await workout.save())
+        Promise.all(workoutPromises)
+        */
     })
 
     test('creation succeeds with a fresh username', async () => {
-        const usersAtStart = await User.find({})
+        const usersAtStart = await helper.usersInDb()
 
         const newUser = {
             username: 'mluukkai',
@@ -32,7 +61,7 @@ describe('when there is initially one user at db', () => {
             .expect(200)
             .expect('Content-Type', /application\/json/)
 
-        const usersAtEnd = await User.find({})
+        const usersAtEnd = await helper.usersInDb()
         expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
 
         const usernames = usersAtEnd.map(u => u.username)
@@ -40,25 +69,25 @@ describe('when there is initially one user at db', () => {
     })
 
     test('creation fails with proper statuscode and message if username already taken', async () => {
-        const usersAtStart = await User.find({})
-    
+        const usersAtStart = await helper.usersInDb()
+
         const newUser = {
-          username: 'root',
-          name: 'Superuser',
-          password: 'salainen',
+            username: 'root',
+            name: 'Superuser',
+            password: 'salainen',
         }
-    
+
         const result = await api
-          .post('/api/users')
-          .send(newUser)
-          .expect(400)
-          .expect('Content-Type', /application\/json/)
-    
-        expect(result.body.error).toContain('`username` to be unique')
-    
-        const usersAtEnd = await User.find({})
+            .post('/api/users')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        expect(result.body.error).toContain('expected `username` to be unique')
+
+        const usersAtEnd = await helper.usersInDb()
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
-      })
+    })
 })
 
 afterAll(() => {
