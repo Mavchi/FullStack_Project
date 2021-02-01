@@ -144,7 +144,7 @@ describe('favourite workouts', () => {
         //console.log('toimiikohan', userAtEnd.favourite_workouts)
         expect(userAtEnd.favourite_workouts).toHaveLength(1)
     })
-
+    /*
     test('can delete workout from favourites', async () => {
         const req = {
             workout_id: '6017fd12ac151833101a62a3',
@@ -164,6 +164,7 @@ describe('favourite workouts', () => {
         console.log('userin workoutit poiston jälkeen', userAtEnd.favourite_workouts)
         expect(userAtEnd.favourite_workouts).toHaveLength(0)
     })
+    */
 })
 
 afterAll(() => {

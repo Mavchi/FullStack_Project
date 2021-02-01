@@ -3,7 +3,21 @@ GET http://localhost:3003/api/workouts
 GET http://localhost:3003/api/users
 ###
 
+post http://localhost:3003/api/login
+Content-Type: application/json
 
+{
+    "username": "root",
+    "password": "sekret"
+}
+###
+post http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "Aleksi",
+    "password": "sekret"
+}
 
 
 
