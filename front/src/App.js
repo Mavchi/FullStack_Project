@@ -3,62 +3,63 @@ import lodash from 'lodash'
 
 import LogIn from './pages/login/LogIn'
 import WorkoutPage from './pages/WorkoutPage'
+import Home from './pages/Home'
 
 import workoutDescService from './services/workout_descriptions'
 import workoutPageService from './services/workout_pages'
+import favouriteWorkoutsService from './services/favourite_workouts'
 
 function App() {
   const [defaultWorkouts, setDefaultWorkouts] = useState([])
   const [workoutLists, setWorkoutLists] = useState({ tabs: [], favourite: [] })
-  const [globalState, setGlobalState] = useState("log in")
+  const [globalState, setGlobalState] = useState("home")
+  const [user, setUser] = useState(null)
+
+  //window.localStorage.removeItem('loggedKFITappUser')
 
   useEffect(() => {
-    workoutDescService
-      .getAll()
-      .then(workouts => {
-        // download default workouts
-        console.log('workouts', workouts)
-        setDefaultWorkouts(lodash.cloneDeep(workouts))
-      })
-      .catch(error => {
-        console.log('couldnt download workout descriptions from server:', error)
-      })
+    console.log(window.localStorage.getItem('loggedKFITappUser'))
+    const loggedUserJSON = window.localStorage.getItem('loggedKFITappUser')
+    if (loggedUserJSON !== "undefined") {
+      //console.log(loggedUserJSON, 'hupsista')
+      const updated_user = {}
+      updated_user.login_data = JSON.parse(loggedUserJSON)
+      //const updated_user = lodash.cloneDeep(user)
+      // download favourite workouts
+      updated_user.favourite_workouts = favouriteWorkoutsService.getAll()
+      setUser(updated_user)
+    }
   }, [])
-/*
-  useEffect(() => {
-    workoutPageService
-      .getAll()
-      .then(pages => {
-        // download menu items and included workouts
-        console.log('pages', pages)
-        setWorkoutLists(lodash.cloneDeep(pages))
-      })
-      .catch(error => {
-        console.log('couldnt download workout menu from server:', error)
-      })
-  }, [])
-*/
+
   const handleGlobalStateChange = (action) => {
     return () => setGlobalState(action)
   }
 
-  if(globalState === 'log in')
+  const handleLogIn = async (user) => {
+    const updated_user = {}
+    updated_user.login_data = lodash.cloneDeep(user)
+
+    // download favourite workouts
+    updated_user.favourite_workouts = await favouriteWorkoutsService.getAll()
+
+    setUser(updated_user)
+    setGlobalState('home')
+  }
+
+  if (user === null)
     return (
       <div>
-        <LogIn setGlobalState={handleGlobalStateChange}/>
+        <LogIn handleInitUser={handleLogIn} setGlobalState={handleGlobalStateChange} />
       </div>
     )
-/*
-  if (globalState === "workouts") {
+  console.log(user.favourite_workouts)
+  if (globalState === 'home')
     return (
-      <div className="content">
-        <WorkoutPage
-          workouts={defaultWorkouts}
-          tabs={workoutLists}
-        />
+      <div>
+        <Home user={user} />
       </div>
     )
-  }*/
+
 }
 
 export default App;

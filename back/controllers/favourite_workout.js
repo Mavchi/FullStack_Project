@@ -19,7 +19,7 @@ favouriteWorkoutRouter.post('/', async (request, response, next) => {
     const token = getTokenForm(request)
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if(!token || !decodedToken.id) {
-        return response.status(401).json({ error: 'token missin or invalid'})
+        return response.status(401).json({ error: 'token missing or invalid'})
     }
 
     const user = await User.findById(decodedToken.id)
@@ -32,6 +32,20 @@ favouriteWorkoutRouter.post('/', async (request, response, next) => {
     await user.save()
 
     response.json(user.toJSON())
+})
+
+favouriteWorkoutRouter.get('/', async (request, response) => {
+    const token = getTokenForm(request)
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    if(!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid'})
+    }
+
+    const user = await User
+        .findById(decodedToken.id)
+        .populate('favourite_workouts')
+
+    response.json(user.favourite_workouts.map(workout => workout.toJSON()))
 })
 
 favouriteWorkoutRouter.delete('/', async (request, response) => {

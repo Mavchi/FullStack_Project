@@ -7,6 +7,8 @@ import google_icon from '../../img/icons/google-icon.svg'
 import 'materialize-css';
 import { TextInput } from 'react-materialize';
 
+import loginService from '../../services/login'
+
 const Welcome = ({ handleGlobalState }) => {
     return (
         <div className='welcome-page'>
@@ -91,13 +93,35 @@ const SignUp = ({ handleGlobalState }) => {
         )
 }
 
-const SignIn = ({ handleGlobalState }) => {
+const SignIn = ({ handleInitUser, handleGlobalState }) => {
     const [localState, setLocalState] = useState('main')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleLocalStateChange = (state) => {
         return () => (
             console.log(state, 'clicked')
         )
+    }
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+
+        try {
+            const user = await loginService.login({
+                username, password
+            })
+            console.log('user is', user)
+
+            window.localStorage.setItem(
+                'loggedKFITappUser', JSON.stringify(user)
+            )
+            setUsername('')
+            setPassword('')
+            handleInitUser(user)
+        } catch (exception) {
+            console.log('wrong credentials, cant log in')
+        }
     }
 
     if (localState === 'main')
@@ -124,10 +148,10 @@ const SignIn = ({ handleGlobalState }) => {
                         or
                     </div>
 
-                    <input value='Email' style={{ color: '#E4DEDE' }} />
-                    <input value='Password' style={{ color: '#E4DEDE' }} />
+                    <input value={username} placeholder='Email' style={{ color: '#E4DEDE' }}  onChange={({ target }) => setUsername(target.value)}/>
+                    <input value={password} placeholder='Password' style={{ color: '#E4DEDE' }}  onChange={({ target }) => setPassword(target.value)}/>
                     <div style={{ color: '#395185', textAlign: 'center' }} onClick={handleGlobalState('forgot password')}>Forgot Password</div>
-                    <div className='login-button login-grey' onClick={handleLocalStateChange('sign in-email')}>
+                    <div className='login-button login-grey' onClick={handleLogin}>
                         Log In with Email
                     </div>
                 </div>
@@ -138,7 +162,7 @@ const SignIn = ({ handleGlobalState }) => {
         )
 }
 
-const LogIn = ({ setGlobalState }) => {
+const LogIn = ({ handleInitUser, setGlobalState }) => {
     // welcome, sign up, sign in, forgot password
     const [localState, setLocalState] = useState('welcome')
 
@@ -166,7 +190,7 @@ const LogIn = ({ setGlobalState }) => {
     if (localState === 'sign in')
         return (
             <div>
-                <SignIn handleGlobalState={handleLocalStateChange} />
+                <SignIn handleInitUser={handleInitUser} handleGlobalState={handleLocalStateChange} />
             </div>
         )
 }

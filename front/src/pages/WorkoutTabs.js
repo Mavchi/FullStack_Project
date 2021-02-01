@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 //import { Tab } from 'react-materialize'
-import WorkoutThumbnail from '../components/WorkoutThumbnail'
+import WorkoutThumbnail from '../components/Workout'
 
 import './WorkoutTabs.css'
 

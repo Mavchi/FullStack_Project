@@ -1,11 +1,11 @@
 import React from 'react'
 
-import './WorkoutThumbnail.css'
+import './Workout.css'
 
 import likedIcon from '../img/icons/heart-icon-liked.svg'
 import notLikedIcon from '../img/icons/heart-icon-notliked.svg'
 
-const WorkoutThumbnail = ({workout, handleClick}) => {
+const Workout = ({workout }) => {
     return (
         <div className='workout-thumbnail' style={{ backgroundImage: `url(${workout.img})`, backgroundSize: 'contain'}}>
             <div className="workout-thumbnail-box">
@@ -20,4 +20,4 @@ const WorkoutThumbnail = ({workout, handleClick}) => {
     )
 }
 
-export default WorkoutThumbnail
+export default Workout
