@@ -111,11 +111,7 @@ const SignIn = ({ handleInitUser, handleGlobalState }) => {
             const user = await loginService.login({
                 username, password
             })
-            console.log('user is', user)
-
-            window.localStorage.setItem(
-                'loggedKFITappUser', JSON.stringify(user)
-            )
+            
             setUsername('')
             setPassword('')
             handleInitUser(user)

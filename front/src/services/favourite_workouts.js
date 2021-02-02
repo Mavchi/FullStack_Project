@@ -1,11 +1,11 @@
+/*
+    Can like and unlike workouts only
+*/
+/*
 import axios from 'axios'
 const baseUrl = 'http://localhost:3003/api/favourite_workouts'
 
-let token = null
 
-const setToken = newToken => {
-    token = `bearer ${newToken}`
-}
 
 const getAll = async () => {
     const config = {
@@ -18,3 +18,5 @@ const getAll = async () => {
 
 const favouriteWorkoutsService = { setToken, getAll }
 export default favouriteWorkoutsService
+
+*/

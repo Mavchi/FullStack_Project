@@ -1,3 +1,4 @@
+/*
 import React, { useState } from 'react'
 
 import FooterMenu from '../components/FooterMenu'
@@ -34,3 +35,4 @@ const WorkoutPage = ({ workouts, tabs }) => {
 }
 
 export default WorkoutPage
+*/

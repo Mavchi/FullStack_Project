@@ -1,3 +1,7 @@
+/*
+    Router to like and unlike workouts
+*/
+
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { response } = require('../app')

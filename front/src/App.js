@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import lodash from 'lodash'
 
 import LogIn from './pages/login/LogIn'
-import WorkoutPage from './pages/WorkoutPage'
 import Home from './pages/Home'
 
-import workoutDescService from './services/workout_descriptions'
-import workoutPageService from './services/workout_pages'
-import favouriteWorkoutsService from './services/favourite_workouts'
+import loginService from './services/login'
+//import WorkoutPage from './pages/WorkoutPage'
+
+//import workoutDescService from './services/workout_descriptions'
+//import workoutPageService from './services/workout_pages'
+//import favouriteWorkoutsService from './services/favourite_workouts'
 
 function App() {
   const [defaultWorkouts, setDefaultWorkouts] = useState([])
@@ -16,18 +18,17 @@ function App() {
   const [user, setUser] = useState(null)
 
   //window.localStorage.removeItem('loggedKFITappUser')
-
   useEffect(() => {
-    console.log(window.localStorage.getItem('loggedKFITappUser'))
-    const loggedUserJSON = window.localStorage.getItem('loggedKFITappUser')
-    if (loggedUserJSON !== "undefined") {
-      //console.log(loggedUserJSON, 'hupsista')
-      const updated_user = {}
-      updated_user.login_data = JSON.parse(loggedUserJSON)
+    const loggedUserJSON = JSON.parse(window.localStorage.getItem('loggedKFITappUser'))
+    console.log('token', loggedUserJSON)
+    if (loggedUserJSON !== "undefined" || loggedUserJSON !== null || !loggedUserJSON) {
+      console.log('token löytyy selaimesta')
+      const user = loginService.getUserData(loggedUserJSON)
+
+      console.log('app, user: ', user)
       //const updated_user = lodash.cloneDeep(user)
       // download favourite workouts
-      updated_user.favourite_workouts = favouriteWorkoutsService.getAll()
-      setUser(updated_user)
+      setUser(user)
     }
   }, [])
 
@@ -36,23 +37,17 @@ function App() {
   }
 
   const handleLogIn = async (user) => {
-    const updated_user = {}
-    updated_user.login_data = lodash.cloneDeep(user)
-
-    // download favourite workouts
-    updated_user.favourite_workouts = await favouriteWorkoutsService.getAll()
-
-    setUser(updated_user)
+    setUser(user)
     setGlobalState('home')
   }
 
-  if (user === null)
+  if ( user === null || user.login_data===null)
     return (
       <div>
         <LogIn handleInitUser={handleLogIn} setGlobalState={handleGlobalStateChange} />
       </div>
     )
-  console.log(user.favourite_workouts)
+  console.log('user in app, before Home', user)
   if (globalState === 'home')
     return (
       <div>

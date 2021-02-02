@@ -1,3 +1,4 @@
+/*
 import React, { useState } from 'react'
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 //import { Tab } from 'react-materialize'
@@ -57,3 +58,4 @@ const WorkoutPages = ({ tabs, handleClick }) => {
 }
 
 export default WorkoutPages
+*/

@@ -1,11 +1,11 @@
 import Workout from '../components/Workout'
 
 const Home = ({ user }) => {
-    console.log('home', user.favourite_workouts)
+    console.log('home', user)
 
     return (
         <div>
-        {user.favourite_workouts.map(workout => <Workout key={workout.name} workout={workout}/>)}
+        {user.favourite_workouts.map(workout => workout.name)}
         </div>
     )
 }

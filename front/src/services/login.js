@@ -1,19 +1,53 @@
 import axios from 'axios'
-import favouriteWorkoutsService from './favourite_workouts'
-const baseUrl = 'http://localhost:3003/api/login'
 
+const baseUrlLogin = 'http://localhost:3003/api/login'
+const baseUrlUsers = 'http://localhost:3003/api/users'
+
+let token = null
+
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
 
 const login = async credentials => {
-    const response = await axios.post(baseUrl, credentials)
+    try {
+        const response = await axios.post(baseUrlLogin, credentials)
+        // update tokens
+        setToken(response.data.token)
+        console.log('login returns', response.data)
 
-    // update tokens
-    favouriteWorkoutsService.setToken(response.data.token)
+        window.localStorage.setItem(
+            'loggedKFITappUser', JSON.stringify(response.data.token)
+        )
 
-    return response.data
+        const userdata = await getUserData(response.data)
+        return userdata
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+const getUserData = async login_data => {
+    try {
+        console.log('getUserData->')
+        //console.log('token:', login_data.token)
+        setToken(login_data.token)
+
+        const config = {
+            headers: { Authorization: token }
+        }
+        const response = await axios.get(`${baseUrlUsers}/${login_data.username}`, config)
+        console.log('response.data: ', response.data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+        return null
+    }
 }
 
 const loginService = {
-    login,
+    login, getUserData, setToken
 }
 
 export default loginService
