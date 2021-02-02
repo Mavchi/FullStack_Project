@@ -27,6 +27,7 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
+app.use(middleware.tokenExtractor)
 app.use('/api/workouts', workoutRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/favourite_workouts', favouriteWorkoutRouter)

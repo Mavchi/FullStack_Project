@@ -6,17 +6,10 @@ const favouriteWorkoutRouter = require('express').Router()
 const User = require('../models/user')
 const Workout = require('../models/workout')
 
-const getTokenForm = request => {
-    const authorization = request.get('authorization')
-    if( authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        return authorization.substring(7)
-    }
-    return null
-}
 
 favouriteWorkoutRouter.post('/', async (request, response, next) => {
     const body = request.body
-    const token = getTokenForm(request)
+    const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if(!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid'})
@@ -35,7 +28,7 @@ favouriteWorkoutRouter.post('/', async (request, response, next) => {
 })
 
 favouriteWorkoutRouter.get('/', async (request, response) => {
-    const token = getTokenForm(request)
+    const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if(!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid'})
@@ -50,7 +43,7 @@ favouriteWorkoutRouter.get('/', async (request, response) => {
 
 favouriteWorkoutRouter.delete('/', async (request, response) => {
     const body = request.body
-    const token = getTokenForm(request)
+    const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if(!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missin or invalid'})
