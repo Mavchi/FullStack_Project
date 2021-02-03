@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import LogIn from './pages/login/LogIn'
 import Home from './pages/Home'
 import SettingsPage from './pages/Settings'
-import WorkoutPage from './pages/Workouts'
+import WorkoutsPage from './pages/Workouts'
 
 import loginService from './services/login'
 import appDataService from './services/appData'
@@ -68,7 +68,7 @@ function App() {
   
   if(globalState === 'Workouts') {
     return (
-      <WorkoutPage appData={appData} handleGlobalStateChange={handleGlobalStateChange}/>
+      <WorkoutsPage appData={appData} handleGlobalStateChange={handleGlobalStateChange}/>
     )
   }
   

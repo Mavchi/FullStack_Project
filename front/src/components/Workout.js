@@ -5,7 +5,7 @@ import './Workout.css'
 import likedIcon from '../img/icons/heart-icon-liked.svg'
 import notLikedIcon from '../img/icons/heart-icon-notliked.svg'
 
-const Workout = ({workout }) => {
+const Workout = ({ workout }) => {
     return (
         <div className='workout-thumbnail' style={{ backgroundImage: `url(${workout.description.img})`, backgroundSize: 'contain'}}>
             <div className="workout-thumbnail-box">

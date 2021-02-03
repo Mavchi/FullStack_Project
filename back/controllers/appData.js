@@ -43,12 +43,14 @@ const Workout = require('../models/workout')
 
 appDataRouter.get('/', async (request, response) => {
     const app_data = appData_test 
+    const workouts = []
     for(let i=0; i < app_data.workout_menus.length; i++){
         for(let j=0; j < app_data.workout_menus[i].workout_ids.length; j++){
             const workout = await Workout.findById(app_data.workout_menus[i].workout_ids[j])
-            app_data.workout_menus[i].workouts.push(workout.toJSON())
+            workouts.push(workout.toJSON())
         }
     }
+    app_data.workout_menus[i].workouts = workouts
     //console.log(app_data)
     response.json(app_data)
 })
