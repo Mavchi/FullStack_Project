@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import lodash from 'lodash'
+//import lodash from 'lodash'
 
 import LogIn from './pages/login/LogIn'
 import Home from './pages/Home'
-import Settings from './pages/Settings'
+import SettingsPage from './pages/Settings'
+import WorkoutPage from './pages/Workouts'
 
 import loginService from './services/login'
-//import WorkoutPage from './pages/WorkoutPage'
+import appDataService from './services/appData'
 
 //import workoutDescService from './services/workout_descriptions'
 //import workoutPageService from './services/workout_pages'
 //import favouriteWorkoutsService from './services/favourite_workouts'
 
 function App() {
-  const [defaultWorkouts, setDefaultWorkouts] = useState([])
-  const [workoutLists, setWorkoutLists] = useState({ tabs: [], favourite: [] })
   const [globalState, setGlobalState] = useState("Home")
+  const [appData, setAppData] = useState(null)
   const [user, setUser] = useState(null)
 
   //window.localStorage.removeItem('loggedKFITappUser')
   useEffect(() => {
     const getData = async () => {
+      // dowload appData from server first
+      const app_data = await appDataService.getAll()
+      //console.log('app_data', app_data)
+      setAppData(app_data)
+
       const loggedUserJSON = JSON.parse(window.localStorage.getItem('loggedKFITappUser'))
       //console.log('token', loggedUserJSON)
       if (loggedUserJSON !== "undefined" || loggedUserJSON !== null || !loggedUserJSON) {
         //console.log('token löytyy selaimesta')
         const user = await loginService.getUserData(loggedUserJSON)
-        const workout_menu = await 
         //console.log('app, user: ', user)
         //const updated_user = lodash.cloneDeep(user)
         // download favourite workouts
@@ -62,9 +66,15 @@ function App() {
       </div>
     )
   
+  if(globalState === 'Workouts') {
+    return (
+      <WorkoutPage appData={appData} handleGlobalStateChange={handleGlobalStateChange}/>
+    )
+  }
+  
   if(globalState === 'Settings') 
       return (
-        <Settings handleGlobalStateChange={handleGlobalStateChange}/>
+        <SettingsPage handleGlobalStateChange={handleGlobalStateChange}/>
       )
 }
 

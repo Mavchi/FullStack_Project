@@ -32,15 +32,15 @@ const login = async credentials => {
 
 const getUserData = async new_token => {
     try {
-        console.log('getUserData->')
-        console.log('token:', new_token)
+        //console.log('getUserData->')
+        //console.log('token:', new_token)
         setToken(new_token)
 
         const config = {
             headers: { Authorization: token }
         }
         const response = await axios.get(baseUrlUsers, config)
-        console.log('response.data: ', response.data)
+        //console.log('response.data: ', response.data)
         return response.data
     } catch (error) {
         console.log(error)

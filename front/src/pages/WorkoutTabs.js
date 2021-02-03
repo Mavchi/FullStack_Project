@@ -1,8 +1,9 @@
-/*
-import React, { useState } from 'react'
-import ScrollMenu from 'react-horizontal-scrolling-menu';
+
+import React, { useState, useEffect } from 'react'
+import ScrollMenu from 'react-horizontal-scrolling-menu'
+
+import lodash from 'lodash'
 //import { Tab } from 'react-materialize'
-import WorkoutThumbnail from '../components/Workout'
 
 import './WorkoutTabs.css'
 
@@ -35,9 +36,22 @@ const Arrow = ({ text, className }) => {
 const ArrowLeft = Arrow({ text: '<', className: 'arrow-prev' });
 const ArrowRight = Arrow({ text: '>', className: 'arrow-next' });
 
-const WorkoutPages = ({ tabs, handleClick }) => {
-    const [selected, setSelected] = useState({selected: tabs[0].name})
-    const list = tabs.map(tab => tab.name)
+const WorkoutPages = ({ appData, handleClick }) => {
+    //console.log('appData',appData.workout_menus[0].name)
+    const [selected, setSelected] = useState({selected: 0})
+    const [list, setList] = useState([])
+
+    useEffect(() => {
+        const new_list = []
+        for(let i=0; i<appData.workout_menus.length; i++){
+            console.log(appData.workout_menus[i].name)
+            new_list.push({name: appData.workout_menus[i].name})
+            console.log(new_list)
+        }
+        setList(new_list)
+    }, [appData.workout_menus])
+    
+    console.log(list)
     const onSelect = key => {
         setSelected({selected: key})
     }
@@ -53,9 +67,9 @@ const WorkoutPages = ({ tabs, handleClick }) => {
                 selected={selected}
                 onSelect={onSelect}
             />
+            {appData.workout_menus[selected].name}
         </div>
     )
 }
 
 export default WorkoutPages
-*/

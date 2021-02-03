@@ -94,7 +94,7 @@ const SignUp = ({ handleGlobalState }) => {
 }
 
 const SignIn = ({ handleInitUser, handleGlobalState }) => {
-    const [localState, setLocalState] = useState('main')
+    //const [localState, setLocalState] = useState('main')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -111,7 +111,7 @@ const SignIn = ({ handleInitUser, handleGlobalState }) => {
             const user = await loginService.login({
                 username, password
             })
-            
+
             setUsername('')
             setPassword('')
             handleInitUser(user)
@@ -120,42 +120,42 @@ const SignIn = ({ handleInitUser, handleGlobalState }) => {
         }
     }
 
-    if (localState === 'main')
-        return (
-            <div className='sign-page'>
-                <div className='sign-header'>
-                    Welcome Back
+    //if (localState === 'main')
+    return (
+        <div className='sign-page'>
+            <div className='sign-header'>
+                Welcome Back
                 </div>
-                <div className='sign-container'>
-                    <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-facebook')}>
-                        <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px' }} src={facebook_icon} alt={'facebook-icon'} />
-                        </div>
+            <div className='sign-container'>
+                <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-facebook')}>
+                    <div className={'login-thumbnail-container'}>
+                        <img style={{ height: '40px' }} src={facebook_icon} alt={'facebook-icon'} />
+                    </div>
                         Log In with Facebook
                     </div>
-                    <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-google')}>
-                        <div className={'login-thumbnail-container'}>
-                            <img style={{ height: '40px' }} src={google_icon} alt={'google-icon'} />
-                        </div>
+                <div className='login-button login-blue' onClick={handleLocalStateChange('sign in-google')}>
+                    <div className={'login-thumbnail-container'}>
+                        <img style={{ height: '40px' }} src={google_icon} alt={'google-icon'} />
+                    </div>
                         Log In with Google
                     </div>
 
-                    <div className='login-button' onClick={handleLocalStateChange('or')}>
-                        or
+                <div className='login-button' onClick={handleLocalStateChange('or')}>
+                    or
                     </div>
 
-                    <input value={username} placeholder='Email' style={{ color: '#E4DEDE' }}  onChange={({ target }) => setUsername(target.value)}/>
-                    <input value={password} placeholder='Password' style={{ color: '#E4DEDE' }}  onChange={({ target }) => setPassword(target.value)}/>
-                    <div style={{ color: '#395185', textAlign: 'center' }} onClick={handleGlobalState('forgot password')}>Forgot Password</div>
-                    <div className='login-button login-grey' onClick={handleLogin}>
-                        Log In with Email
+                <input value={username} placeholder='Email' style={{ color: '#E4DEDE' }} onChange={({ target }) => setUsername(target.value)} />
+                <input value={password} placeholder='Password' style={{ color: '#E4DEDE' }} onChange={({ target }) => setPassword(target.value)} />
+                <div style={{ color: '#395185', textAlign: 'center' }} onClick={handleGlobalState('forgot password')}>Forgot Password</div>
+                <div className='login-button login-grey' onClick={handleLogin}>
+                    Log In with Email
                     </div>
-                </div>
-                <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
-                    Don't have an account? <span style={{ color: '#395185' }} onClick={handleGlobalState('sign up')}>Sign Up</span>
-                </div>
             </div>
-        )
+            <div style={{ color: '#E4DEDE', textAlign: 'center' }}>
+                Don't have an account? <span style={{ color: '#395185' }} onClick={handleGlobalState('sign up')}>Sign Up</span>
+            </div>
+        </div>
+    )
 }
 
 const LogIn = ({ handleInitUser, setGlobalState }) => {

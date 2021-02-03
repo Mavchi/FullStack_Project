@@ -9,18 +9,18 @@ import WorkoutTabs from './WorkoutTabs'
 //import { Tabs } from 'react-materialize'
 //import 'react-tabs/style/react-tabs.css';
 
-const WorkoutPage = ({ workouts, tabs }) => {
+const WorkoutPage = ({ appData, handleGlobalStateChange }) => {
+    const [localState, setLocalState] = useState(appData.workout_menus[0].name)
 
-    console.log('workouts', workouts)
+    //console.log('appData', appData)
 
     const handleTabClick = () => console.log('tab menu clikki')
-    const handleMenuClick = () => console.log('footermenu clikki')
 
     return (
         <div>
             <Search handleChange={() => console.log('emmä tiiä')} />
-            <WorkoutTabs tabs={tabs} handleClick={handleTabClick} />
-            <FooterMenu handleClick={handleMenuClick} />
+            <WorkoutTabs appData={appData} handleClick={handleTabClick} />
+            <FooterMenu handleClick={handleGlobalStateChange} />
         </div>
     )
 }

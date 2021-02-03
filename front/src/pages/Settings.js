@@ -1,6 +1,6 @@
 import FooterMenu from '../components/FooterMenu'
 
-const Settings = ({ handleGlobalStateChange }) => {
+const SettingsPage = ({ handleGlobalStateChange }) => {
     const logOut = () => {
         window.localStorage.removeItem('loggedKFITappUser')
         handleGlobalStateChange('Home')
@@ -17,4 +17,4 @@ const Settings = ({ handleGlobalStateChange }) => {
     )
 }
 
-export default Settings
+export default SettingsPage
