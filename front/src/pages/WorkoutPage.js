@@ -1,4 +1,4 @@
-/*
+
 import React, { useState } from 'react'
 
 import FooterMenu from '../components/FooterMenu'
@@ -10,7 +10,6 @@ import WorkoutTabs from './WorkoutTabs'
 //import 'react-tabs/style/react-tabs.css';
 
 const WorkoutPage = ({ workouts, tabs }) => {
-    const [localState, setLocalState] = useState('main')
 
     console.log('workouts', workouts)
 
@@ -19,20 +18,11 @@ const WorkoutPage = ({ workouts, tabs }) => {
 
     return (
         <div>
-            {tabs[0].name}
+            <Search handleChange={() => console.log('emmä tiiä')} />
+            <WorkoutTabs tabs={tabs} handleClick={handleTabClick} />
+            <FooterMenu handleClick={handleMenuClick} />
         </div>
     )
-
-    if (localState === 'main') {
-        return (
-            <div>
-                <Search handleChange={() => console.log('emmä tiiä')} />
-                <WorkoutTabs tabs={tabs} handleClick={handleTabClick} />
-                <FooterMenu handleClick={handleMenuClick} />
-            </div>
-        )
-    }
 }
 
 export default WorkoutPage
-*/

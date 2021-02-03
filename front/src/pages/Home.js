@@ -2,7 +2,7 @@ import Workout from '../components/Workout'
 import FooterMenu from '../components/FooterMenu'
 
 const Home = ({ user, handleGlobalStateChange }) => {
-    console.log('home', user)
+    //console.log('home', user)
 
     return (
         <div>

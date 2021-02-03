@@ -39,17 +39,8 @@ Content-Type: application/json
         "strength": "2",
     }
 }
+### 
+get http://localhost:3003/api/workouts
 
-###
-    {
-        name: 'Full-Body Kettlebell Workout (For Beginners)',
-        description: {
-            pro: false,
-            level: 'beginner',
-            img: '',
-            tags: ['kettlebell, full body, circuit'],
-            cardio: 1,
-            muscle: 2,
-            strength: 2,
-        }
-    }
+### 
+get http://localhost:3003/api/appData

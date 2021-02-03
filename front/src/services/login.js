@@ -21,6 +21,8 @@ const login = async credentials => {
         )
 
         const userdata = await getUserData(token)
+
+        window.location.reload(false)
         return userdata
     } catch (error) {
         console.log(error)
@@ -31,7 +33,7 @@ const login = async credentials => {
 const getUserData = async new_token => {
     try {
         console.log('getUserData->')
-        //console.log('token:', login_data.token)
+        console.log('token:', new_token)
         setToken(new_token)
 
         const config = {
