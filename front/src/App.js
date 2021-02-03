@@ -55,7 +55,7 @@ function App() {
   if (globalState === 'home')
     return (
       <div>
-        <Home user={user} />
+        <Home user={user} handleGlobalStateChange={handleGlobalStateChange}/>
       </div>
     )
 

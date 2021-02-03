@@ -20,7 +20,7 @@ const login = async credentials => {
             'loggedKFITappUser', JSON.stringify(response.data.token)
         )
 
-        const userdata = await getUserData(response.data)
+        const userdata = await getUserData(token)
         return userdata
     } catch (error) {
         console.log(error)
@@ -28,16 +28,16 @@ const login = async credentials => {
     }
 }
 
-const getUserData = async login_data => {
+const getUserData = async new_token => {
     try {
         console.log('getUserData->')
         //console.log('token:', login_data.token)
-        setToken(login_data.token)
+        setToken(new_token)
 
         const config = {
             headers: { Authorization: token }
         }
-        const response = await axios.get(`${baseUrlUsers}/${login_data.username}`, config)
+        const response = await axios.get(baseUrlUsers, config)
         console.log('response.data: ', response.data)
         return response.data
     } catch (error) {
