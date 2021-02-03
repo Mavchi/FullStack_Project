@@ -19,17 +19,21 @@ function App() {
 
   //window.localStorage.removeItem('loggedKFITappUser')
   useEffect(() => {
-    const loggedUserJSON = JSON.parse(window.localStorage.getItem('loggedKFITappUser'))
-    console.log('token', loggedUserJSON)
-    if (loggedUserJSON !== "undefined" || loggedUserJSON !== null || !loggedUserJSON) {
-      console.log('token löytyy selaimesta')
-      const user = loginService.getUserData(loggedUserJSON)
+    const getData = async () => {
+      const loggedUserJSON = JSON.parse(window.localStorage.getItem('loggedKFITappUser'))
+      console.log('token', loggedUserJSON)
+      if (loggedUserJSON !== "undefined" || loggedUserJSON !== null || !loggedUserJSON) {
+        console.log('token löytyy selaimesta')
+        const user = await loginService.getUserData(loggedUserJSON)
 
-      console.log('app, user: ', user)
-      //const updated_user = lodash.cloneDeep(user)
-      // download favourite workouts
-      setUser(user)
+        console.log('app, user: ', user)
+        //const updated_user = lodash.cloneDeep(user)
+        // download favourite workouts
+        setUser(user)
+      }
     }
+
+    getData()
   }, [])
 
   const handleGlobalStateChange = (action) => {
@@ -41,7 +45,7 @@ function App() {
     setGlobalState('home')
   }
 
-  if ( user === null || user.login_data===null)
+  if (user === null || user.login_data === null)
     return (
       <div>
         <LogIn handleInitUser={handleLogIn} setGlobalState={handleGlobalStateChange} />
